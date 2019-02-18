@@ -34,5 +34,15 @@ router.get('/:taskID', function (req, res) {
 	});
 });
 
+//Update a task
+router.put('/:taskID', function (req, res) {
+	db.Task.findOneAndUpdate({_id: req.params.taskID}, req.body, {new: true})
+		.then(function (updatedTask) {
+			res.json(updatedTask);
+		}).catch(function (err) {
+		res.send(err);
+	});
+});
+
 
 module.exports = router;
