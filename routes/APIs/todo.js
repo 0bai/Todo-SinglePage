@@ -44,5 +44,15 @@ router.put('/:taskID', function (req, res) {
 	});
 });
 
+//Delete Task
+router.delete('/:taskID', function (req, res) {
+	db.Task.remove({_id: req.params.taskID})
+		.then(function () {
+			res.json({message: 'Deleted Successfully'});
+		}).catch(function (err) {
+		res.send(err);
+	});
+});
+
 
 module.exports = router;
