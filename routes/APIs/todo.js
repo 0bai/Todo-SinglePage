@@ -1,58 +1,20 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../../models');
+var helper = require('../../helpers/task');
 
 //Retrieve all tasks
-router.get('/', function (req, res) {
-	db.Task.find()
-		.then(function (tasks) {
-			res.json(tasks);
-		})
-		.catch(function (err) {
-			res.send(err);
-		});
-});
+router.get('/', helper.getTasks);
 
 //Create a task
-router.post('/', function (req, res) {
-	console.log(req.body);
-	db.Task.create(req.body)
-		.then(function (newTask) {
-			res.status(201).json(newTask);
-		}).catch(function (err) {
-		res.send(err);
-	});
-});
+router.post('/', helper.createTask);
 
 //Show a task
-router.get('/:taskID', function (req, res) {
-	db.Task.findById(req.params.taskID)
-		.then(function (foundTask) {
-			res.json(foundTask);
-		}).catch(function (err) {
-		res.send(err);
-	});
-});
+router.get('/:taskID', helper.getTask);
 
 //Update a task
-router.put('/:taskID', function (req, res) {
-	db.Task.findOneAndUpdate({_id: req.params.taskID}, req.body, {new: true})
-		.then(function (updatedTask) {
-			res.json(updatedTask);
-		}).catch(function (err) {
-		res.send(err);
-	});
-});
+router.put('/:taskID', helper.updateTask);
 
 //Delete Task
-router.delete('/:taskID', function (req, res) {
-	db.Task.remove({_id: req.params.taskID})
-		.then(function () {
-			res.json({message: 'Deleted Successfully'});
-		}).catch(function (err) {
-		res.send(err);
-	});
-});
-
+router.delete('/:taskID', helper.deleteTask);
 
 module.exports = router;
