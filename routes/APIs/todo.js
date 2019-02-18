@@ -13,4 +13,15 @@ router.get('/', function (req, res) {
 		});
 });
 
+
+router.post('/', function (req, res) {
+	console.log(req.body);
+	db.Task.create(req.body)
+		.then(function (newTask) {
+			res.json(newTask);
+		}).catch(function (err) {
+		res.send(err);
+	});
+});
+
 module.exports = router;
