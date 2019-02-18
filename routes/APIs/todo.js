@@ -24,4 +24,15 @@ router.post('/', function (req, res) {
 	});
 });
 
+//Show a task
+router.get('/:taskID', function (req, res) {
+	db.Task.findById(req.params.taskID)
+		.then(function (foundTask) {
+			res.json(foundTask);
+		}).catch(function (err) {
+		res.send(err);
+	});
+});
+
+
 module.exports = router;
