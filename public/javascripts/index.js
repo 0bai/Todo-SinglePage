@@ -8,6 +8,8 @@ $(document).ready(function () {
 
 function addTasks(tasks) {
 	tasks.forEach(function (task) {
-		$('.list').append('<li class="task">' + task.name + '</li>');
+		var newTask = $('<li class="task">' + task.name + '</li>');
+		if (task.completed) newTask.addClass('done');
+		$('.list').append(newTask);
 	});
 }
