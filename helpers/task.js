@@ -11,6 +11,7 @@ exports.getTasks = function (req, res) {
 };
 
 exports.createTask = function (req, res) {
+	req.body.name = req.sanitize(req.body.name);
 	db.Task.create(req.body)
 		.then(function (newTask) {
 			res.status(201).json(newTask);
